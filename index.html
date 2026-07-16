@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ihor Sam — Front-end &amp; PHP Developer</title>
+<meta name="description" content="Front-end and PHP developer. I build responsive, cross-browser websites with HTML, CSS and PHP — and fix the ones that break." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='6' width='28' height='20' rx='3' fill='%230F1020' stroke='%23F5B455' stroke-width='2'/%3E%3Cline x1='16' y1='6' x2='16' y2='26' stroke='%235AD1E3' stroke-width='2'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0F1020;
+    --bg-2:#171A34;
+    --bg-3:#1E2246;
+    --ink:#ECEAF4;
+    --ink-dim:#C6C3DE;
+    --muted:#9A98BC;
+    --line:#2A2E56;
+    --line-soft:#22254a;
+    --amber:#F5B455;
+    --amber-ink:#3A2708;
+    --cyan:#5AD1E3;
+    --danger:#F07A6B;
+    --ok:#79D6A8;
+    --radius:16px;
+    --radius-sm:10px;
+    --wrap:1120px;
+    --serif:"Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    --sans:"Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background:
+      radial-gradient(60rem 40rem at 8% -10%, rgba(245,180,85,.14), transparent 60%),
+      radial-gradient(50rem 40rem at 105% 15%, rgba(90,209,227,.12), transparent 55%),
+      var(--bg);
+  }
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(90rem 60rem at 30% 0%, #000 0%, transparent 70%);
+            mask-image:radial-gradient(90rem 60rem at 30% 0%, #000 0%, transparent 70%);
+    opacity:.5;
+  }
+
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+  ::selection{ background:var(--amber); color:var(--amber-ink); }
+
+  :focus-visible{
+    outline:2px solid var(--cyan);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  .wrap{
+    width:100%;
+    max-width:var(--wrap);
+    margin-inline:auto;
+    padding-inline:clamp(20px, 5vw, 40px);
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.72rem;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    color:var(--cyan);
+    display:inline-flex;
+    align-items:center;
+    gap:.6em;
+  }
+  .eyebrow::before{
+    content:"";
+    width:26px;
+    height:1px;
+    background:var(--cyan);
+    opacity:.7;
+  }
+
+  .nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    -webkit-backdrop-filter:blur(12px);
+            backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    height:68px;
+  }
+  .brand{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    font-family:var(--serif);
+    font-weight:700;
+    letter-spacing:-.01em;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .brand-mark{
+    width:34px;
+    height:34px;
+    border-radius:9px;
+    background:linear-gradient(135deg, var(--amber), #ffcf85);
+    color:var(--amber-ink);
+    display:grid;
+    place-items:center;
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:.72rem;
+    letter-spacing:-.02em;
+    box-shadow:0 6px 18px -8px rgba(245,180,85,.7);
+  }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  .nav-links a{
+    display:inline-block;
+    padding:8px 14px;
+    border-radius:8px;
+    text-decoration:none;
+    color:var(--ink-dim);
+    font-weight:600;
+    font-size:.95rem;
+    transition:color .18s ease, background .18s ease;
+  }
+  .nav-links a:hover{ color:var(--ink); background:var(--bg-2); }
+  .nav-links a.active{ color:var(--amber); }
+  .nav-side{ display:flex; align-items:center; gap:14px; }
+  .bp-readout{
+    font-family:var(--mono);
+    font-size:.72rem;
+    color:var(--muted);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:5px 11px;
+    white-space:nowrap;
+    display:inline-flex;
+    gap:.5em;
+    align-items:center;
+  }
+  .bp-readout b{ color:var(--cyan); font-weight:700; }
+  .bp-dot{ width:7px; height:7px; border-radius:50%; background:var(--ok); box-shadow:0 0 0 3px rgba(121,214,168,.18); }
+  .btn{
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:.95rem;
+    border:none;
+    border-radius:10px;
+    padding:11px 18px;
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    transition:transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease, color .2s ease;
+  }
+  .btn-amber{
+    background:var(--amber);
+    color:var(--amber-ink);
+    box-shadow:0 10px 24px -12px rgba(245,180,85,.9);
+  }
+  .btn-amber:hover{ transform:translateY(-2px); box-shadow:0 16px 30px -12px rgba(245,180,85,.9); }
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink);
+    border:1px solid var(--line);
+  }
+  .btn-ghost:hover{ border-color:var(--cyan); color:var(--cyan); transform:translateY(-2px); }
+  .btn-sm{ padding:9px 15px; font-size:.9rem; }
+  .btn .arw{ transition:transform .18s ease; }
+  .btn:hover .arw{ transform:translateX(3px); }
+
+  .burger{
+    display:none;
+    width:44px; height:44px;
+    border:1px solid var(--line);
+    background:var(--bg-2);
+    border-radius:10px;
+    cursor:pointer;
+    padding:0;
+    position:relative;
+  }
+  .burger span, .burger span::before, .burger span::after{
+    content:"";
+    position:absolute;
+    left:50%; top:50%;
+    width:18px; height:2px;
+    background:var(--ink);
+    transform:translate(-50%,-50%);
+    transition:transform .22s ease, opacity .22s ease;
+  }
+  .burger span::before{ transform:translate(-50%,-7px); }
+  .burger span::after{ transform:translate(-50%,5px); }
+  .nav[data-open="true"] .burger span{ background:transparent; }
+  .nav[data-open="true"] .burger span::before{ transform:translate(-50%,0) rotate(45deg); }
+  .nav[data-open="true"] .burger span::after{ transform:translate(-50%,0) rotate(-45deg); }
+
+  .section{ padding-block:clamp(64px, 9vw, 118px); }
+  .section-head{ max-width:640px; margin-bottom:clamp(34px,5vw,54px); }
+  .section-head .h2{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:clamp(1.9rem, 4.4vw, 2.9rem);
+    line-height:1.08;
+    letter-spacing:-.02em;
+    margin:.5em 0 .35em;
+  }
+  .section-head p{ color:var(--muted); font-size:1.05rem; margin:0; }
+
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in{ opacity:1; transform:none; }
+
+  .hero{ padding-top:clamp(46px, 7vw, 80px); padding-bottom:clamp(30px,5vw,46px); }
+  .hero-top{ max-width:760px; }
+  .hero h1{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:clamp(2.35rem, 6.4vw, 4.5rem);
+    line-height:1.03;
+    letter-spacing:-.03em;
+    margin:.6em 0 .5em;
+  }
+  .hero h1 em{ font-style:normal; color:var(--amber); }
+  .hero h1 .under{
+    color:var(--cyan);
+    font-style:normal;
+    position:relative;
+    white-space:nowrap;
+  }
+  .hero-sub{
+    font-size:clamp(1.05rem, 2.3vw, 1.28rem);
+    color:var(--ink-dim);
+    max-width:56ch;
+    margin:0 0 2em;
+  }
+  .hero-sub b{ color:var(--ink); font-weight:600; }
+  .hero-cta{ display:flex; flex-wrap:wrap; gap:14px; align-items:center; }
+  .hero-stats{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 30px;
+    margin-top:34px;
+    font-family:var(--mono);
+    font-size:.78rem;
+    letter-spacing:.06em;
+    color:var(--muted);
+  }
+  .hero-stats span{ color:var(--ink); }
+
+  .vp-wrap{ margin-top:clamp(40px,6vw,64px); }
+  .vp{
+    border:1px solid var(--line);
+    background:linear-gradient(180deg, var(--bg-2), #14162c);
+    border-radius:var(--radius);
+    padding:14px;
+    box-shadow:0 40px 80px -50px rgba(0,0,0,.9);
+    overflow:hidden;
+    position:relative;
+  }
+  .vp-toolbar{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:4px 6px 14px;
+    border-bottom:1px solid var(--line-soft);
+    margin-bottom:16px;
+  }
+  .vp-dots{ display:flex; gap:7px; }
+  .vp-dots i{ width:11px; height:11px; border-radius:50%; background:var(--line); }
+  .vp-dots i:nth-child(1){ background:#4a3a2c; }
+  .vp-dots i:nth-child(2){ background:#3a3f2c; }
+  .vp-dots i:nth-child(3){ background:#2c3f3f; }
+  .vp-url{
+    flex:1;
+    min-width:0;
+    font-family:var(--mono);
+    font-size:.76rem;
+    color:var(--muted);
+    background:var(--bg);
+    border:1px solid var(--line-soft);
+    border-radius:8px;
+    padding:6px 12px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .vp-size{
+    font-family:var(--mono);
+    font-size:.8rem;
+    font-weight:700;
+    color:var(--cyan);
+    white-space:nowrap;
+    display:inline-flex;
+    align-items:center;
+    gap:.55em;
+  }
+  .vp-size .label{
+    color:var(--amber);
+    font-weight:700;
+    font-size:.68rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    border:1px solid color-mix(in srgb, var(--amber) 40%, transparent);
+    padding:2px 7px;
+    border-radius:999px;
+  }
+
+  .vp-stage{
+    position:relative;
+    height:clamp(300px, 46vw, 400px);
+  }
+  .vp-screen{
+    position:absolute;
+    left:0; top:0;
+    height:100%;
+    width:760px;
+    max-width:100%;
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 0 0 1px rgba(90,209,227,.06), 0 24px 50px -30px rgba(0,0,0,.8);
+  }
+  .vp:not(.dragging) .vp-screen{ transition:width .38s cubic-bezier(.2,.75,.2,1); }
+  .vp:not(.dragging) .vp-handle{ transition:left .38s cubic-bezier(.2,.75,.2,1); }
+  .vp-handle{
+    position:absolute;
+    top:0;
+    left:760px;
+    height:100%;
+    width:26px;
+    transform:translateX(-13px);
+    display:grid;
+    place-items:center;
+    cursor:ew-resize;
+    background:transparent;
+    border:none;
+    padding:0;
+    touch-action:none;
+    z-index:3;
+  }
+  .vp-handle .grip{
+    width:12px;
+    height:66px;
+    border-radius:999px;
+    background:var(--amber);
+    box-shadow:0 6px 16px -6px rgba(245,180,85,.8);
+    display:grid;
+    place-items:center;
+    gap:3px;
+    align-content:center;
+    transition:transform .15s ease, box-shadow .2s ease;
+  }
+  .vp-handle .grip::before,
+  .vp-handle .grip::after{
+    content:"";
+    width:2px;
+    height:16px;
+    background:rgba(58,39,8,.55);
+    border-radius:2px;
+    grid-row:1;
+  }
+  .vp-handle .grip::before{ margin-left:-3px; }
+  .vp-handle .grip::after{ margin-left:3px; }
+  .vp-handle:hover .grip{ transform:scaleY(1.08); }
+  .vp-handle:active .grip{ transform:scaleY(.96); }
+
+  .vp-controls{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    margin-top:16px;
+    padding-top:16px;
+    border-top:1px solid var(--line-soft);
+  }
+  .vp-presets{ display:flex; gap:8px; flex-wrap:wrap; }
+  .vp-presets button{
+    font-family:var(--mono);
+    font-size:.76rem;
+    font-weight:500;
+    letter-spacing:.02em;
+    color:var(--ink-dim);
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:8px 13px;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    transition:border-color .18s ease, color .18s ease, background .18s ease;
+  }
+  .vp-presets button:hover{ border-color:var(--cyan); color:var(--ink); }
+  .vp-presets button[aria-pressed="true"]{
+    border-color:var(--amber);
+    color:var(--amber);
+    background:color-mix(in srgb, var(--amber) 10%, transparent);
+  }
+  .vp-caption{
+    font-family:var(--mono);
+    font-size:.76rem;
+    color:var(--muted);
+    display:inline-flex;
+    align-items:center;
+    gap:.6em;
+  }
+  .vp-caption svg{ flex:none; }
+
+  .mini{
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    background:
+      radial-gradient(30rem 14rem at 20% -20%, rgba(245,180,85,.10), transparent 60%),
+      radial-gradient(24rem 14rem at 110% 0%, rgba(90,209,227,.10), transparent 55%),
+      var(--bg);
+    padding:16px 18px;
+    gap:14px;
+  }
+  .mini-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .mini-logo{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:.92rem;
+    color:var(--ink);
+  }
+  .mini-logo i{ width:12px; height:12px; border-radius:4px; background:var(--cyan); }
+  .mini-nav{ display:none; gap:16px; }
+  .mini-nav a{ font-size:.78rem; color:var(--muted); text-decoration:none; font-weight:600; }
+  .mini-cta{ display:none; font-size:.72rem; font-weight:700; color:var(--amber-ink); background:var(--amber); padding:6px 12px; border-radius:7px; }
+  .mini-burger{ display:inline-grid; place-items:center; width:30px; height:26px; border:1px solid var(--line); border-radius:7px; color:var(--ink-dim); font-size:.9rem; }
+
+  .mini-hero{ display:flex; flex-direction:column; gap:9px; padding:6px 0 4px; }
+  .mini-hero h4{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:1.15rem;
+    line-height:1.1;
+    letter-spacing:-.02em;
+    margin:0;
+    color:var(--ink);
+  }
+  .mini-hero p{ margin:0; font-size:.82rem; color:var(--muted); }
+  .mini-btn{ align-self:flex-start; margin-top:4px; font-size:.76rem; font-weight:700; color:var(--amber-ink); background:var(--amber); padding:8px 14px; border-radius:8px; }
+
+  .mini-cards{ display:grid; grid-template-columns:1fr; gap:10px; margin-top:auto; }
+  .mini-card{
+    border:1px solid var(--line-soft);
+    border-radius:9px;
+    background:var(--bg-2);
+    padding:11px;
+    min-height:54px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .mini-card::before{ content:""; width:26px; height:4px; border-radius:3px; background:var(--muted); }
+  .mini-card:nth-child(1)::before{ background:var(--amber); }
+  .mini-card:nth-child(2)::before{ background:var(--cyan); }
+  .mini-card:nth-child(3)::before{ background:#8f7fd8; }
+  .mini-card b{ font-size:.72rem; color:var(--ink-dim); font-weight:600; }
+  .mini-card span{ font-size:.66rem; color:var(--muted); }
+
+  .mini.is-mid .mini-cards{ grid-template-columns:1fr 1fr; }
+  .mini.is-mid .mini-nav{ display:flex; }
+  .mini.is-mid .mini-burger{ display:none; }
+  .mini.is-mid .mini-hero h4{ font-size:1.35rem; }
+
+  .mini.is-wide{ padding:20px 26px; gap:18px; }
+  .mini.is-wide .mini-cards{ grid-template-columns:repeat(3,1fr); }
+  .mini.is-wide .mini-nav{ display:flex; }
+  .mini.is-wide .mini-cta{ display:inline-block; }
+  .mini.is-wide .mini-burger{ display:none; }
+  .mini.is-wide .mini-hero{ padding:14px 0; }
+  .mini.is-wide .mini-hero h4{ font-size:1.7rem; }
+  .mini.is-wide .mini-hero p{ font-size:.9rem; }
+
+  .cap-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:18px;
+  }
+  .card{
+    border:1px solid var(--line);
+    background:linear-gradient(180deg, var(--bg-2), #14162c);
+    border-radius:var(--radius);
+    padding:26px 24px 24px;
+    position:relative;
+    overflow:hidden;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .card:hover{ border-color:color-mix(in srgb, var(--cyan) 45%, var(--line)); transform:translateY(-3px); }
+  .card .idx{
+    font-family:var(--mono);
+    font-size:.74rem;
+    color:var(--cyan);
+    letter-spacing:.1em;
+  }
+  .card h3{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:1.32rem;
+    letter-spacing:-.01em;
+    margin:.55em 0 .45em;
+  }
+  .card p{ color:var(--muted); margin:0 0 1.1em; font-size:.98rem; }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-family:var(--mono);
+    font-size:.72rem;
+    color:var(--ink-dim);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:5px 11px;
+    background:var(--bg);
+  }
+  .card-ico{
+    position:absolute;
+    top:22px; right:22px;
+    width:38px; height:38px;
+    color:var(--amber);
+    opacity:.9;
+  }
+
+  .refactor{
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:linear-gradient(180deg, var(--bg-2), #131529);
+    overflow:hidden;
+  }
+  .rf-head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:20px 22px;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .rf-head h3{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:1.25rem;
+    margin:0;
+    letter-spacing:-.01em;
+  }
+  .rf-head p{ margin:2px 0 0; color:var(--muted); font-size:.9rem; }
+  .rf-toggle{
+    display:inline-flex;
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:4px;
+    gap:4px;
+  }
+  .rf-toggle button{
+    font-family:var(--mono);
+    font-size:.78rem;
+    font-weight:600;
+    color:var(--muted);
+    background:transparent;
+    border:none;
+    border-radius:7px;
+    padding:8px 16px;
+    cursor:pointer;
+    transition:background .18s ease, color .18s ease;
+  }
+  .rf-toggle button[aria-pressed="true"]{ color:var(--amber-ink); background:var(--amber); }
+  .rf-body{ display:grid; grid-template-columns:1.5fr 1fr; }
+  .rf-code{
+    margin:0;
+    padding:22px 24px;
+    font-family:var(--mono);
+    font-size:.82rem;
+    line-height:1.75;
+    color:var(--ink-dim);
+    overflow-x:auto;
+    border-right:1px solid var(--line-soft);
+    min-height:230px;
+  }
+  .rf-code[hidden]{ display:none; }
+  .rf-code .cmt{ color:#6f6d92; }
+  .rf-code .tag{ color:var(--cyan); }
+  .rf-code .atr{ color:var(--amber); }
+  .rf-code .php{ color:#c8a2ff; }
+  .rf-code .bad{ color:var(--danger); text-decoration:wavy underline; text-decoration-color:rgba(240,122,107,.6); text-underline-offset:3px; }
+  .rf-code .good{ color:var(--ok); }
+  .rf-notes{ padding:22px 24px; }
+  .rf-status{
+    font-family:var(--mono);
+    font-size:.78rem;
+    font-weight:700;
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:7px 12px;
+    border-radius:999px;
+    margin-bottom:16px;
+  }
+  .rf-status[data-state="before"]{ color:var(--danger); border:1px solid color-mix(in srgb, var(--danger) 45%, transparent); background:rgba(240,122,107,.08); }
+  .rf-status[data-state="after"]{ color:var(--ok); border:1px solid color-mix(in srgb, var(--ok) 45%, transparent); background:rgba(121,214,168,.08); }
+  .rf-status .pulse{ width:8px; height:8px; border-radius:50%; background:currentColor; }
+  .rf-list{ list-style:none; margin:0; padding:0; display:grid; gap:12px; }
+  .rf-list li{ display:flex; gap:11px; font-size:.9rem; color:var(--ink-dim); align-items:flex-start; }
+  .rf-list .mk{ flex:none; margin-top:2px; font-family:var(--mono); font-weight:700; font-size:.9rem; }
+  .rf-list[data-state="before"] .mk{ color:var(--danger); }
+  .rf-list[data-state="after"] .mk{ color:var(--ok); }
+
+  .work-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  .work-card{
+    display:flex;
+    flex-direction:column;
+    border:1px solid var(--line);
+    background:linear-gradient(180deg, var(--bg-2), #14162c);
+    border-radius:var(--radius);
+    padding:24px 22px;
+    text-decoration:none;
+    color:inherit;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .work-card:hover{ border-color:color-mix(in srgb, var(--amber) 45%, var(--line)); transform:translateY(-3px); }
+  .work-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+  .work-no{ font-family:var(--mono); font-size:.74rem; color:var(--muted); letter-spacing:.1em; }
+  .work-kind{ font-family:var(--mono); font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--cyan); }
+  .work-card h3{ font-family:var(--serif); font-weight:700; font-size:1.24rem; margin:0 0 .4em; letter-spacing:-.01em; }
+  .work-card p{ color:var(--muted); font-size:.94rem; margin:0 0 auto; }
+  .work-foot{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:22px; }
+  .work-tags{ display:flex; flex-wrap:wrap; gap:6px; }
+  .work-view{ font-family:var(--mono); font-size:.78rem; color:var(--amber); display:inline-flex; align-items:center; gap:6px; white-space:nowrap; }
+
+  .contact{
+    border:1px solid var(--line);
+    border-radius:calc(var(--radius) + 6px);
+    background:
+      radial-gradient(40rem 22rem at 15% -30%, rgba(245,180,85,.14), transparent 60%),
+      radial-gradient(34rem 22rem at 108% 120%, rgba(90,209,227,.12), transparent 55%),
+      linear-gradient(180deg, var(--bg-2), #131529);
+    padding:clamp(36px,6vw,66px);
+    text-align:center;
+  }
+  .contact h2{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:clamp(2rem, 5.4vw, 3.3rem);
+    letter-spacing:-.02em;
+    line-height:1.05;
+    margin:.4em auto .5em;
+    max-width:16ch;
+  }
+  .contact p{ color:var(--ink-dim); max-width:52ch; margin:0 auto 2em; font-size:1.05rem; }
+  .contact-cta{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; }
+  .contact-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 26px;
+    justify-content:center;
+    margin-top:30px;
+    font-family:var(--mono);
+    font-size:.82rem;
+  }
+  .contact-links a{ color:var(--muted); text-decoration:none; display:inline-flex; gap:8px; align-items:center; transition:color .18s ease; }
+  .contact-links a:hover{ color:var(--cyan); }
+
+  .footer{ border-top:1px solid var(--line-soft); padding-block:34px; }
+  .footer-inner{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .footer .brand{ font-size:1rem; }
+  .footer-meta{ display:flex; align-items:center; gap:20px; flex-wrap:wrap; font-family:var(--mono); font-size:.76rem; color:var(--muted); }
+  .footer-meta b{ color:var(--cyan); }
+
+  @media (max-width: 900px){
+    .rf-body{ grid-template-columns:1fr; }
+    .rf-code{ border-right:none; border-bottom:1px solid var(--line-soft); min-height:0; }
+    .work-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 760px){
+    .nav-links, .nav-side .bp-readout, .nav-side .btn{ display:none; }
+    .burger{ display:block; }
+    .nav-links{
+      position:absolute;
+      top:calc(100% + 1px);
+      left:0; right:0;
+      flex-direction:column;
+      align-items:stretch;
+      gap:4px;
+      background:var(--bg);
+      border-bottom:1px solid var(--line);
+      padding:14px clamp(20px,5vw,40px) 20px;
+      transform:translateY(-8px);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .2s ease, transform .2s ease;
+    }
+    .nav-links a{ padding:12px 14px; font-size:1rem; }
+    .nav[data-open="true"] .nav-links{
+      display:flex;
+      opacity:1;
+      transform:none;
+      pointer-events:auto;
+    }
+    .cap-grid{ grid-template-columns:1fr; }
+    .work-grid{ grid-template-columns:1fr; }
+    .vp-toolbar .vp-url{ display:none; }
+  }
+  @media (max-width: 460px){
+    body{ font-size:16px; }
+    .vp-controls{ flex-direction:column; align-items:flex-start; }
+    .hero-cta .btn{ flex:1 1 auto; justify-content:center; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *, *::before, *::after{ transition:none !important; animation:none !important; }
+    .reveal{ opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav" data-open="false">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">
+      <span class="brand-mark">I.S.</span>
+      Ihor Sam
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-side">
+      <span class="bp-readout" title="Live width of this real page" aria-hidden="true">
+        <span class="bp-dot"></span>
+        <span id="bpWidth">—</span>·<b id="bpName">—</b>
+      </span>
+      <a href="#contact" class="btn btn-amber btn-sm">Email me</a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero wrap">
+    <div class="hero-top reveal">
+      <span class="eyebrow">Front-end · PHP · Responsive</span>
+      <h1>The web, built to <em>fit</em>—<br>every <span class="under">screen</span>, every browser.</h1>
+      <p class="hero-sub">I'm Ihor, a front-end &amp; PHP developer. I build <b>responsive, cross-browser</b> websites with HTML, CSS and PHP — and I clean up the ones that break.</p>
+      <div class="hero-cta">
+        <a href="#" class="btn btn-amber">See selected work <span class="arw">→</span></a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+      <div class="hero-stats">
+        <div><span>HTML5</span> / <span>CSS3</span> / <span>PHP</span> / <span>JavaScript</span></div>
+        <div>Flexbox · Grid · <span>Cross-browser</span></div>
+      </div>
+    </div>
+
+    <div class="vp-wrap reveal">
+      <div class="vp" id="vp">
+        <div class="vp-toolbar">
+          <div class="vp-dots"><i></i><i></i><i></i></div>
+          <div class="vp-url">https://preview.ihor.dev — drag the handle →</div>
+          <div class="vp-size">
+            <span id="vpPx">760px</span>
+            <span class="label" id="vpLabel">Desktop</span>
+          </div>
+        </div>
+
+        <div class="vp-stage" id="vpStage">
+          <div class="vp-screen" id="vpScreen">
+            <div class="mini is-wide" id="mini">
+              <div class="mini-bar">
+                <span class="mini-logo"><i></i> Northwind</span>
+                <nav class="mini-nav"><a>Product</a><a>Pricing</a><a>About</a></nav>
+                <span class="mini-cta">Start free</span>
+                <span class="mini-burger" aria-hidden="true">≡</span>
+              </div>
+              <div class="mini-hero">
+                <h4>Design that adapts</h4>
+                <p>One codebase, every device — no compromises.</p>
+                <span class="mini-btn">Get started</span>
+              </div>
+              <div class="mini-cards">
+                <div class="mini-card"><b>Fast</b><span>Built for speed</span></div>
+                <div class="mini-card"><b>Fluid</b><span>Fits any size</span></div>
+                <div class="mini-card"><b>Solid</b><span>Works everywhere</span></div>
+              </div>
+            </div>
+          </div>
+          <button class="vp-handle" id="vpHandle" role="slider"
+                  aria-label="Resize preview width"
+                  aria-valuemin="320" aria-valuemax="1024" aria-valuenow="760"
+                  aria-valuetext="760 pixels, Desktop layout">
+            <span class="grip" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <div class="vp-controls">
+          <div class="vp-presets" role="group" aria-label="Device presets">
+            <button type="button" data-w="375">▪ Phone</button>
+            <button type="button" data-w="768">▪▪ Tablet</button>
+            <button type="button" data-w="1024" aria-pressed="true">▪▪▪ Desktop</button>
+          </div>
+          <span class="vp-caption">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round"><path d="M8 7 4 12l4 5M16 7l4 5-4 5"/></svg>
+            Drag to resize — the layout adapts. This is what I do.
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="skills">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">What I do</span>
+        <h2 class="h2">Solid front-end, honest back-end, no broken layouts.</h2>
+        <p>A focused toolkit built around shipping pages that hold up — across devices, browsers, and the messy real world of existing code.</p>
+      </div>
+
+      <div class="cap-grid">
+        <article class="card reveal">
+          <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m8 6-4 6 4 6M16 6l4 6-4 6"/></svg>
+          <div class="idx">01 / build</div>
+          <h3>Websites from scratch</h3>
+          <p>Hand-written HTML, CSS and PHP — semantic structure, clean stylesheets, and server logic that stays readable long after launch.</p>
+          <div class="chips"><span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">PHP</span></div>
+        </article>
+
+        <article class="card reveal">
+          <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M8 5v14"/></svg>
+          <div class="idx">02 / adapt</div>
+          <h3>Responsive &amp; cross-browser</h3>
+          <p>Fluid layouts with Flexbox and Grid that reflow from phone to desktop, and behave the same in Chrome, Firefox, Safari and Edge.</p>
+          <div class="chips"><span class="chip">Flexbox</span><span class="chip">Grid</span><span class="chip">Media queries</span></div>
+        </article>
+
+        <article class="card reveal">
+          <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v3M12 18v3M5 12H2m20 0h-3M6 6l2 2m8 8 2 2m0-12-2 2M8 16l-2 2"/><circle cx="12" cy="12" r="3.2"/></svg>
+          <div class="idx">03 / fix</div>
+          <h3>Debugging &amp; refactoring</h3>
+          <p>Dropped into existing projects to hunt down bugs, untangle old markup, and modernise layouts without rewriting everything from zero.</p>
+          <div class="chips"><span class="chip">Bug fixing</span><span class="chip">Legacy code</span><span class="chip">Clean-up</span></div>
+        </article>
+
+        <article class="card reveal">
+          <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 18c-4 0-6-2-6-6s2-6 6-6M15 6c4 0 6 2 6 6s-2 6-6 6M14 4l-4 16"/></svg>
+          <div class="idx">04 / interact</div>
+          <h3>Interactive elements</h3>
+          <p>Vanilla JavaScript for the moving parts — menus, toggles, sliders and small UI touches that make a static page feel alive.</p>
+          <div class="chips"><span class="chip">JavaScript</span><span class="chip">DOM</span><span class="chip">Vanilla JS</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="refactor reveal">
+        <div class="rf-head">
+          <div>
+            <h3>Before → after: a quick refactor</h3>
+            <p>The same button, cleaned up. Toggle to compare.</p>
+          </div>
+          <div class="rf-toggle" role="group" aria-label="Compare code">
+            <button type="button" id="rfBefore" aria-pressed="true">Before</button>
+            <button type="button" id="rfAfter" aria-pressed="false">After</button>
+          </div>
+        </div>
+        <div class="rf-body">
+          <pre class="rf-code" id="codeBefore" aria-label="Before code"><span class="cmt">&lt;!-- clickable div, inline styles, raw output --&gt;</span>
+&lt;<span class="bad">div</span> <span class="atr">class</span>=<span class="php">"btn"</span> <span class="bad">onclick</span>=<span class="php">"submit()"</span>&gt;
+  &lt;?php <span class="bad">echo $name</span>; ?&gt;
+&lt;/<span class="bad">div</span>&gt;
+
+&lt;<span class="tag">style</span>&gt;
+  .btn{ <span class="bad">color:#fff; background:#333</span> }
+&lt;/<span class="tag">style</span>&gt;</pre>
+
+          <pre class="rf-code" id="codeAfter" hidden aria-label="After code"><span class="cmt">&lt;!-- real button, escaped output, styles in CSS --&gt;</span>
+&lt;<span class="good">button</span> <span class="atr">class</span>=<span class="php">"btn"</span> <span class="atr">type</span>=<span class="php">"submit"</span>&gt;
+  &lt;?= <span class="good">htmlspecialchars($name)</span> ?&gt;
+&lt;/<span class="good">button</span>&gt;
+
+<span class="cmt">/* stylesheet.css */</span>
+.btn:<span class="good">focus-visible</span>{ outline:2px solid <span class="atr">#F5B455</span> }</pre>
+
+          <div class="rf-notes">
+            <span class="rf-status" id="rfStatus" data-state="before"><span class="pulse"></span><span id="rfStatusText">3 issues found</span></span>
+            <ul class="rf-list" id="rfList" data-state="before">
+              <li><span class="mk">✕</span><span>A <code>div</code> can't be reached by keyboard or read as a button.</span></li>
+              <li><span class="mk">✕</span><span>Echoing <code>$name</code> raw invites XSS — it needs escaping.</span></li>
+              <li><span class="mk">✕</span><span>Inline styles &amp; no focus state — hard to maintain, poor a11y.</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="work" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Selected work</span>
+        <h2 class="h2">A few things I've built and fixed.</h2>
+        <p>Representative projects across the three things I do most: building, adapting, and rescuing.</p>
+      </div>
+
+      <div class="work-grid">
+        <a href="#" class="work-card reveal">
+          <div class="work-top"><span class="work-no">01</span><span class="work-kind">Build</span></div>
+          <h3>Local business site</h3>
+          <p>A multi-page site for a small studio: hand-coded layout, a PHP contact form, and content that stays easy to edit.</p>
+          <div class="work-foot">
+            <div class="work-tags"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">PHP</span></div>
+            <span class="work-view">View →</span>
+          </div>
+        </a>
+
+        <a href="#" class="work-card reveal">
+          <div class="work-top"><span class="work-no">02</span><span class="work-kind">Interact</span></div>
+          <h3>Product landing page</h3>
+          <p>Built from a design mock-up with an interactive gallery, a mobile menu, and scroll effects — all in vanilla JavaScript.</p>
+          <div class="work-foot">
+            <div class="work-tags"><span class="chip">CSS Grid</span><span class="chip">JS</span></div>
+            <span class="work-view">View →</span>
+          </div>
+        </a>
+
+        <a href="#" class="work-card reveal">
+          <div class="work-top"><span class="work-no">03</span><span class="work-kind">Fix</span></div>
+          <h3>Legacy site rescue</h3>
+          <p>Inherited a broken layout that fell apart on mobile and in Safari. Refactored the CSS, fixed the bugs, made it responsive.</p>
+          <div class="work-foot">
+            <div class="work-tags"><span class="chip">Refactor</span><span class="chip">Cross-browser</span></div>
+            <span class="work-view">View →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact" style="padding-top:0;">
+    <div class="wrap">
+      <div class="contact reveal">
+        <span class="eyebrow" style="justify-content:center;">Let's work together</span>
+        <h2>Got a site to build — or one to fix?</h2>
+        <p>I'm open to freelance and junior front-end / PHP roles. Send over what you're working on and I'll get back to you.</p>
+        <div class="contact-cta">
+          <a href="mailto:samofeevigor@gmail.com" class="btn btn-amber">Say hello <span class="arw">→</span></a>
+          <a href="#" class="btn btn-ghost">Download CV</a>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:samofeevigor@gmail.com"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> samofeevigor@gmail.com</a>
+          <a href="https://github.com/lipticpeptic-boop" target="_blank" rel="noopener noreferrer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-1-2.6c3-.3 6-1.5 6-6.5a5 5 0 0 0-1.4-3.5 4.6 4.6 0 0 0-.1-3.5s-1.1-.3-3.5 1.3a12 12 0 0 0-6 0C6.6.9 5.5 1.2 5.5 1.2a4.6 4.6 0 0 0-.1 3.5A5 5 0 0 0 4 8.2c0 5 3 6.2 6 6.5a3.4 3.4 0 0 0-1 2.6V21"/></svg> github.com/lipticpeptic-boop</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <a href="#top" class="brand"><span class="brand-mark">I.S.</span> Ihor Sam</a>
+    <div class="footer-meta">
+      <span>Hand-coded — HTML · CSS · JS</span>
+      <span>Viewport: <b id="bpFooter">—</b></span>
+      <span>© <span id="year">2026</span></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  var nav = document.getElementById("nav");
+  var burger = document.getElementById("burger");
+  burger.addEventListener("click", function(){
+    var open = nav.getAttribute("data-open") === "true";
+    nav.setAttribute("data-open", String(!open));
+    burger.setAttribute("aria-expanded", String(!open));
+  });
+  document.getElementById("navLinks").addEventListener("click", function(e){
+    if(e.target.tagName === "A"){
+      nav.setAttribute("data-open","false");
+      burger.setAttribute("aria-expanded","false");
+    }
+  });
+
+  var bpWidth = document.getElementById("bpWidth");
+  var bpName = document.getElementById("bpName");
+  var bpFooter = document.getElementById("bpFooter");
+  function realBp(w){
+    if(w < 640) return "XS";
+    if(w < 768) return "SM";
+    if(w < 1024) return "MD";
+    if(w < 1280) return "LG";
+    return "XL";
+  }
+  function updateRealBp(){
+    var w = window.innerWidth;
+    var name = realBp(w);
+    bpWidth.textContent = w + "px";
+    bpName.textContent = name;
+    bpFooter.textContent = w + "px · " + name;
+  }
+  updateRealBp();
+  window.addEventListener("resize", updateRealBp, { passive:true });
+
+  var vp = document.getElementById("vp");
+  var stage = document.getElementById("vpStage");
+  var screen = document.getElementById("vpScreen");
+  var handle = document.getElementById("vpHandle");
+  var mini = document.getElementById("mini");
+  var pxLabel = document.getElementById("vpPx");
+  var kindLabel = document.getElementById("vpLabel");
+  var presets = Array.prototype.slice.call(document.querySelectorAll(".vp-presets button"));
+
+  var MINW = 320;
+  function maxW(){ return stage.clientWidth; }
+
+  function kindFor(w){
+    if(w < 480) return "Mobile";
+    if(w < 900) return "Tablet";
+    return "Desktop";
+  }
+  function classFor(w){
+    mini.classList.remove("is-narrow","is-mid","is-wide");
+    if(w < 480) mini.classList.add("is-narrow");
+    else if(w < 900) mini.classList.add("is-mid");
+    else mini.classList.add("is-wide");
+  }
+
+  function applyWidth(w, animate){
+    var mx = maxW();
+    w = Math.max(MINW, Math.min(mx, Math.round(w)));
+    if(animate === false || prefersReduced){
+      vp.classList.add("dragging");
+    } else {
+      vp.classList.remove("dragging");
+    }
+    screen.style.width = w + "px";
+    handle.style.left = w + "px";
+    var kind = kindFor(w);
+    pxLabel.textContent = w + "px";
+    kindLabel.textContent = kind;
+    classFor(w);
+    handle.setAttribute("aria-valuenow", String(w));
+    handle.setAttribute("aria-valuemax", String(mx));
+    handle.setAttribute("aria-valuetext", w + " pixels, " + kind + " layout");
+    presets.forEach(function(b){
+      b.setAttribute("aria-pressed", String(parseInt(b.dataset.w,10) === w));
+    });
+    return w;
+  }
+
+  var dragging = false;
+  function onMove(clientX){
+    var rect = stage.getBoundingClientRect();
+    applyWidth(clientX - rect.left, false);
+  }
+  handle.addEventListener("pointerdown", function(e){
+    dragging = true;
+    vp.classList.add("dragging");
+    handle.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+  handle.addEventListener("pointermove", function(e){
+    if(dragging) onMove(e.clientX);
+  });
+  function endDrag(e){
+    if(!dragging) return;
+    dragging = false;
+    try{ handle.releasePointerCapture(e.pointerId); }catch(err){}
+    if(!prefersReduced) vp.classList.remove("dragging");
+  }
+  handle.addEventListener("pointerup", endDrag);
+  handle.addEventListener("pointercancel", endDrag);
+
+  handle.addEventListener("keydown", function(e){
+    var cur = parseInt(handle.getAttribute("aria-valuenow"),10) || MINW;
+    var step = e.shiftKey ? 60 : 20;
+    var next = null;
+    switch(e.key){
+      case "ArrowLeft": case "ArrowDown": next = cur - step; break;
+      case "ArrowRight": case "ArrowUp": next = cur + step; break;
+      case "Home": next = MINW; break;
+      case "End": next = maxW(); break;
+      default: return;
+    }
+    e.preventDefault();
+    applyWidth(next, false);
+  });
+
+  presets.forEach(function(b){
+    b.addEventListener("click", function(){
+      applyWidth(parseInt(b.dataset.w,10), true);
+    });
+  });
+
+  function initVp(){ applyWidth(Math.min(1024, maxW()), false); }
+  initVp();
+  var rt;
+  window.addEventListener("resize", function(){
+    clearTimeout(rt);
+    rt = setTimeout(function(){
+      var cur = parseInt(handle.getAttribute("aria-valuenow"),10) || 1024;
+      applyWidth(Math.min(cur, maxW()), false);
+    }, 60);
+  }, { passive:true });
+
+  var rfBefore = document.getElementById("rfBefore");
+  var rfAfter = document.getElementById("rfAfter");
+  var codeBefore = document.getElementById("codeBefore");
+  var codeAfter = document.getElementById("codeAfter");
+  var rfStatus = document.getElementById("rfStatus");
+  var rfStatusText = document.getElementById("rfStatusText");
+  var rfList = document.getElementById("rfList");
+
+  var afterItems = [
+    "Semantic <code>&lt;button&gt;</code> — keyboard-focusable and announced correctly.",
+    "<code>htmlspecialchars()</code> escapes the output — no XSS.",
+    "Styles live in the stylesheet, with a visible <code>:focus-visible</code> ring."
+  ];
+  var beforeItems = [
+    "A <code>div</code> can't be reached by keyboard or read as a button.",
+    "Echoing <code>$name</code> raw invites XSS — it needs escaping.",
+    "Inline styles &amp; no focus state — hard to maintain, poor a11y."
+  ];
+  function renderList(items, mark){
+    rfList.innerHTML = items.map(function(t){
+      return '<li><span class="mk">'+mark+'</span><span>'+t+'</span></li>';
+    }).join("");
+  }
+  function showState(state){
+    var after = state === "after";
+    codeBefore.hidden = after;
+    codeAfter.hidden = !after;
+    rfBefore.setAttribute("aria-pressed", String(!after));
+    rfAfter.setAttribute("aria-pressed", String(after));
+    rfStatus.setAttribute("data-state", state);
+    rfList.setAttribute("data-state", state);
+    rfStatusText.textContent = after ? "Resolved — ships clean" : "3 issues found";
+    renderList(after ? afterItems : beforeItems, after ? "✓" : "✕");
+  }
+  rfBefore.addEventListener("click", function(){ showState("before"); });
+  rfAfter.addEventListener("click", function(){ showState("after"); });
+
+  var reveals = document.querySelectorAll(".reveal");
+  if(prefersReduced || !("IntersectionObserver" in window)){
+    reveals.forEach(function(el){ el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, { threshold:0.12, rootMargin:"0px 0px -8% 0px" });
+    reveals.forEach(function(el){ io.observe(el); });
+  }
+
+  var linkMap = {};
+  document.querySelectorAll(".nav-links a").forEach(function(a){
+    linkMap[a.getAttribute("href").slice(1)] = a;
+  });
+  var sections = ["work","skills","contact"].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  if("IntersectionObserver" in window){
+    var sio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        var a = linkMap[en.target.id];
+        if(!a) return;
+        if(en.isIntersecting){
+          Object.keys(linkMap).forEach(function(k){ linkMap[k].classList.remove("active"); });
+          a.classList.add("active");
+        }
+      });
+    }, { threshold:0.45, rootMargin:"-20% 0px -40% 0px" });
+    sections.forEach(function(s){ sio.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>
